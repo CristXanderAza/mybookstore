@@ -20,14 +20,10 @@ public class AuthorServices {
     }
 
     public List<AuthorDTO> getAll(){
-        try {
             return authorRepository.findAll().stream()
                     .map(a -> new AuthorDTO(a.getId(), a.getName()))
                     .toList();
-        } catch (Exception e) {
-            e.printStackTrace(); // Esto mostrará el error completo en la consola
-            throw e; // Re-lanza la excepción para que siga devolviendo el error 500
-        }
+        
     }
 
 
