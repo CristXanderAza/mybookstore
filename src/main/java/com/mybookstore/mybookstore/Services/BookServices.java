@@ -32,10 +32,7 @@ public class BookServices {
     
     public Optional<BookDTO> getBookByID(Long id){
         Optional<Book> book = bookRepository.findById(id);
-        if(!book.isPresent())
-            return Optional.empty();
-        List<String> genreStrings = book.get().getGenres().stream().map( b -> (String) b.getTitle()).toList();
-        return  book.map(b -> new BookDTO(b.getId(), b.getTitle(), b.getAuthor().getName(), genreStrings, b.getPrice()));
+        return mapBookToDTO(book);
     }
 
     public Optional<BookDTO> getBookByTitle(String title){
@@ -97,12 +94,17 @@ public class BookServices {
     private Optional<BookDTO> mapBookToDTO(Optional<Book> book){
         if(!book.isPresent())
             return Optional.empty();
-        List<String> genreStrings = book.get().getGenres().stream().map( b -> (String) b.getTitle()).toList();
+        List<String> genreStrings = book.get().getGenres()
+        .stream()
+        .map(b -> (String) b.getTitle())
+        .toList();
         return  book.map(b -> new BookDTO(b.getId(), b.getTitle(), b.getAuthor().getName(), genreStrings, b.getPrice()));
     }
 
     private BookDTO mapBookToDTO(Book book){
-        List<String> genreStrings = book.getGenres().stream().map( b -> (String) b.getTitle()).toList();
+        List<String> genreStrings = book.getGenres().stream()
+        .map(b -> (String) b.getTitle())
+        .toList();
         return new BookDTO(book.getId(), book.getTitle(), book.getAuthor().getName(), genreStrings, book.getPrice());
     }
 
