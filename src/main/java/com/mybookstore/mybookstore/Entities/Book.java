@@ -37,7 +37,7 @@ public class Book {
         joinColumns = @JoinColumn(name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private List<Genre> genres = new ArrayList<>();
+    private List<Genre> genres = new ArrayList<>(); 
     
 
     public Book() {}
